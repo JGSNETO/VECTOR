@@ -40,4 +40,4 @@
 
 - The standardized ISO reference model is a good basis to develop and describe communication protocols. Complex tasks of higher protocols are deconstructed into separate services which then are organized as individual layers and so become manageable and easier to understand.
 
-<span style="color: red;">This text will be red</span>
+**Add picture**
