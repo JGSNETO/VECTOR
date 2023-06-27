@@ -40,4 +40,36 @@
 
 - The standardized ISO reference model is a good basis to develop and describe communication protocols. Complex tasks of higher protocols are deconstructed into separate services which then are organized as individual layers and so become manageable and easier to understand.
 
-**Add picture**
+**Add picture** page 16
+
+- Besides the ability to communicate with other nodes, real ECU's need additional software functions: Application, Diagnostics, Network management.
+
+## Bus networking
+- Can Bus Networking: Data protection/ CAN Framing/ Bus Access/ Addressing/ Physical Layer/Synchronization.
+- Specific requirements of the OSI layers 1 and 2:
+1. Serial transmission of digital data
+2. Usage of a single medium with low cost
+3. Simple and easy connection to the medium
+4. Very high system reliability
+5. High speed and virtually error free data transmission with high data consistency
+6. Sandardized bus system
+
+## Can Standard 
+1. 11898-1: CAN Protocol(CAN + CAN FD)
+2. 11898-2: High Speed Physical Layer(up to 1 Mbit/s for CAN, typicaly up to 5 Mbit/s for CAN FD)
+3. 11898-3: Low Speed Physical Layer(up to 125kbit/s)
+
+- CAN technology comprises the CAN and CAN FD protocols and two different CAN Physical Layers.
+
+## Bit serial signal transmission in the electrical transmission medium singlw wire x two wire 
+1. Single wire:
+- Vertical flanks are physically not possible
+- They are only schematically often drawn vertically
+- Depending on the system: Voltage Level, Clocking, sampling point, slop.
+- EMC(Electromagnetic Compatibility) interference can distort the defined working voltage to the point of misinterpretation 
+
+2. Two-wire line:
+- In systems with two lines, the data is transmitted mirror-inverted on twisted-pair lines.
+- The lines are wisted for reasons of symmetry. This ensures that interference affects both lines equally.
+- Now the interference can be easily eliminated. 
+
