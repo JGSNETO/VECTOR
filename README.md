@@ -83,7 +83,7 @@
 - The receiving ECUs measure and interpret the voltage differences between the two CAN-bus wires CAN_H and CAN_L.
 - Once the bits has started, the receiver waits a configurable amount of time until it measures whether the bit is a 1 or a 0. At the time of this so-called sampling, the difference of the voltages on the two CAN wires needs to be in one of the two defined ranges. Anything outside of that, has to be interpreted as an error.
 - Compared to its transmission time, the reception of a bit is always time delayed. Even the transmitter of a bit can read its own bit on the bus only with a time delay. The futher away receiving ECU are from the sender, the greater these time dalys become.
-***image from page 26 ***
+*** image from page 26 ***
 
 ## Structure of CAN-Bus and Electronic Control Unit 
 1. Microcontroller:
@@ -99,6 +99,36 @@
 *** Image from page 27 ***
 - CAN Electronic Control Unit can be viewed as a tripartite system with three functional components:
 1. The microcontroller executes the application software of the ECU. Whenever a messages needs to vbe transmitted, the microcontroller prompts the CAN-Controller with a transmission request and provides the data in question.
-2. The CAN-Controller then completes the message data to become a full frown CAN-message, controls the bus access and passes the message on the CANols the bus access and passes the 
-  
+2. The CAN-Controller then completes the message data to become a full frown CAN-message, controls the bus access and passes the message on the CANols the bus access and passes the message on to the CAN-Transceiver as a sequential bit sream. 
+3. The CAN-Transceiver translates the bit stream into a sequence of value specific voltage levels on the bus wires. 
 
+OBS: To avoid signal reflection use 120 ohm resistor
+  
+## Different types of addressing 
+1. Node Addressing
+- Peer-to-peer: P2P
+- The sender picks the destination 
+- E.g: Diagnostics
+
+2. Broadcast Addressing
+- Broadcast
+- The recipient decides whether to receive or discard the frame 
+- Used in standard CAN
+
+- A key characteristic of CAN communication is the fact that all CAN messages are received and checked by all CAN controllers, even those messages which may not pass the Acceptance filter in a certain CAN controller. 
+- Rx: Receiver 
+- Tx: Transmiter 
+- In CAN communication, each message type (one defined ID) ma originate from one CAN node only! A CAN node may send several message types(Different IDs), but each message should have only one source. 
+
+## Bus Access: Priority 
+- The bus access is controlled by message priorities
+- Message priorities are compared during the arbitration 
+- The inverse of the numerical identifier value represents the message priority. High priority 0. Lowest priority: 2047
+
+## Bus Access: Rule
+- After recessive level for 11 bit times, the bus is defined to be idle and available for transmission. All nodes with a transmission request will access the bus simultaneously and start transmitting the first message bits 
+- If two transmission request occur at different times, the second one finds the bus busy and cannot transmit, no matter what is the message priority. This means that once the bus is busy, the first identifier bit has already started, other nodes have to delay their transmission until the bus is idle again
+- With a maximum pay load of eight bytes, CAN messages will block the bus for a relatively short time only
+- All CAN messages begin with a logical 0 as start signal to distinguish the transmission start from bus idle which is the logical 1. The start of frame is followed by the first identifier bit, followed by the second id bit and so on. This means that during arbitration message collisions are allowed. The prevailing nodes not realize the other nodes and does not have to suffer any delay of transmission at all. 
+
+*** Image from page 37 ***
