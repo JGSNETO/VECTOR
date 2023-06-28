@@ -71,5 +71,34 @@
 2. Two-wire line:
 - In systems with two lines, the data is transmitted mirror-inverted on twisted-pair lines.
 - The lines are wisted for reasons of symmetry. This ensures that interference affects both lines equally.
-- Now the interference can be easily eliminated. 
+- Now the interference can be easily eliminated.
+- Twisted Pair: No misinterpretation despite EMC interference.
+
+## Bit transmission 
+- In CAN communication, the two possible bit values 0 and 1 are represented by exactly two physical constellations:
+1. Transmission Medium: Twisted pair of wires
+2. Physical Constellation: Voltage levels
+
+- Bit duration = 1 / Bit rate
+- The receiving ECUs measure and interpret the voltage differences between the two CAN-bus wires CAN_H and CAN_L.
+- Once the bits has started, the receiver waits a configurable amount of time until it measures whether the bit is a 1 or a 0. At the time of this so-called sampling, the difference of the voltages on the two CAN wires needs to be in one of the two defined ranges. Anything outside of that, has to be interpreted as an error.
+- Compared to its transmission time, the reception of a bit is always time delayed. Even the transmitter of a bit can read its own bit on the bus only with a time delay. The futher away receiving ECU are from the sender, the greater these time dalys become.
+***image from page 26 ***
+
+## Structure of CAN-Bus and Electronic Control Unit 
+1. Microcontroller:
+- Application software
+- Communicates with other ECUs via messages
+2. CAN-Controller
+- Completion of transmit messages
+- Check of received messages
+- Controls bus access and Bit-timing
+3. CAN-Transceiver
+-Transmission: Translation of bits to voltages
+- Receipt: Voltage levels are sampled and forwarded to controller
+*** Image from page 27 ***
+- CAN Electronic Control Unit can be viewed as a tripartite system with three functional components:
+1. The microcontroller executes the application software of the ECU. Whenever a messages needs to vbe transmitted, the microcontroller prompts the CAN-Controller with a transmission request and provides the data in question.
+2. The CAN-Controller then completes the message data to become a full frown CAN-message, controls the bus access and passes the message on the CANols the bus access and passes the 
+  
 
