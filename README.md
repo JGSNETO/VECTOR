@@ -150,3 +150,40 @@ OBS: To avoid signal reflection use 120 ohm resistor
 - DLC: Data Length Code
 - CRC: Cyclic Redundancy Check
 - DEL: Delimiter
+- ACK: Acknowledgement 
+- EOF: End Of Frame
+- ITM: Intermission
+*** Picture from page 40 ***
+
+1. Start of Frame
+- Correspond to a status change from bus idle to bus occupied(1->0)
+- Indicates the start of a message
+- Provides a signal edge used for receivers to synchronize with the sender 
+- A frame is always started by changing the current physical status. 
+- By receiving the edge between 1(bus idle) and 0 (start of frame), all nodes start their cyclic bit duration timer and are able to recognize all the following bit values as well. 
+
+2. Identifier 
+- Transmission: Message priority for arbitration 
+- Receiving: Message identification
+- During arbitration, the ID is used to determine the message with the highest priority
+- A receiving node compares the ID with its acceptance Filter settings to decife if the message is discarded or forwarded to the application software
+- The ID informs the application software about contents and structure of the incoming data field 
+
+3. Remote Transmission Request: 
+- Dominant: Data Frame -> Transmission of information 
+- Recessive: Remote Frame -> Request for data(e.g: Building Services, Automation Engineering)
+- A remote frame is a request for a Data Frame. If a node needs the data denoted by a certain identifier, it issues a Remote Frame with this identifier. Since the IDs of a Remote Frame and its corresponding Data Frame are identical, the RTR bit is included into the Arbitration Phase to avoid collisions. 
+- In a Data Frame, RTR is dominant in a remote frame, RTR is recessive. In an arbitration of a data frame and its corresponding remote frame, the data frame prevails. The transmission request for the remote frame may be discontinued. 
+- Although a Remote Frame does not contain any Data Field, the DLC is set to the value of the requeste data. 
+- Remote Frames are used in technical areas which do not share the paradigm of cyclical data transmission. This is especially the case, when CAN buses are very long(KM) and the resulting transmission rate hence does not allow cyclical transmission anymore. 
+
+## Identifier Extension
+- Dominant: Frame in standard format
+- Recessive: Frame in Extended Format (e.g: utility vehicles)
+- Whenever application of CAN buses need more than 2048 identifiers, the identifier extension provides close to 537 million identifiers. The extended format is used for so-called higher CAN protocols like SAE J1939.
+- All nodes transmitting during an arbitration compare the bit values they sent with the ones they read back from the bus. This is called bit monitoring. 
+*** Picture from page 46 ***
+- Arbitration is performed bitwise
+- In the case where a standard frame and an extended same has the same identifier, the arbitration shall be resolved such that the standard frame wins. This is guaranteed by using the IDE as part of the arbitration for extended frames.
+  
+
