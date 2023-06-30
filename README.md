@@ -132,3 +132,21 @@ OBS: To avoid signal reflection use 120 ohm resistor
 - All CAN messages begin with a logical 0 as start signal to distinguish the transmission start from bus idle which is the logical 1. The start of frame is followed by the first identifier bit, followed by the second id bit and so on. This means that during arbitration message collisions are allowed. The prevailing nodes not realize the other nodes and does not have to suffer any delay of transmission at all. 
 
 *** Image from page 37 ***
+
+## CAN Frame 
+- In CAN communication, different message types and formats are used - dependent on use cases and functional needs.
+- CAN Data Frame Standard Format: Identifier 11 bit / Data Field 0 to 8 Byte
+- CAN Data frame Extended Format: Identifier 29 bit / Data Field 0 to 8 Byte
+- CAN Remote Frame Standard Format: Identifier 11 bit/ Data field not available
+- CAN Remote Frame Extended Format: Identifier 29 bit/Data field not available
+
+- Use the extended format increases the communication overhead since only the identifier size is extended, not the payload data size.
+
+## Structure of CAN Data Frame in Standard Format 
+- SOF: Start of Frame
+- RTR: Remote Transmission Request
+- IDE: Identifier Extension
+- r: Reverse Bit
+- DLC: Data Length Code
+- CRC: Cyclic Redundancy Check
+- DEL: Delimiter
